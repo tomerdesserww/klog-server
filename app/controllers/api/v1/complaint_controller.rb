@@ -8,10 +8,10 @@ class Api::V1::ComplaintController < ApplicationController
   end
 
   def create
-    render json: Complaint.create!(text: params[:text], image_url: params[:image_url], session_id: params[:session_id])
+    render json: Complaint.create!(params.permit(:name, :text, :asset_url, :session_id))
   end
 
   def update
-    render json: Complaint.find(params[:id]).update!(params.permit(:text, :image_url, :session_id))
+    render json: Complaint.find(params[:id]).update!(params.permit(:name, :text, :asset_url, :session_id))
   end
 end
