@@ -23,7 +23,7 @@ class Api::V1::ComplaintController < ApplicationController
         secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
       )
     rescue => e
-      exp = e.message
+      exp = e
     end
 
     # s3 = Aws::S3::Resource.new(client: aws_client)
