@@ -18,16 +18,17 @@ class Api::V1::ComplaintController < ApplicationController
   def generate_upload_url
     aws_client = Aws::S3::Client.new(
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region: ENV['AWS_REGION']
     )
 
     s3 = Aws::S3::Resource.new(client: aws_client)
-    bucket = s3.bucket('bucket-name')
+    bucket = s3.bucket('klog-complaint-images')
     obj = bucket.object("#{params[:filename]}")
 
-    url = obj.presigned_url(:put)
+    url = obj.presigned_url(:put, acl: 'public-read', expires_in: 3600 * 24 * 7)
 
-    render json: url
+    render json: { uploadUrl: url }
   end
 
   def reply
