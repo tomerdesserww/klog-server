@@ -29,4 +29,9 @@ class Api::V1::ComplaintController < ApplicationController
 
     render json: url
   end
+
+  def reply
+    Complaint.find(params[:id]).update(response: params[:message])
+    #PAZZZ GIVE ME AN ENDPOINT TO SENT THE RESPONSE TO
+  end
 end

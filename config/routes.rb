@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :complaint do
         collection do
           post :generate_upload_url
+          post :reply
         end
       end
     end
