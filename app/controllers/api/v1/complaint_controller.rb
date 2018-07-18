@@ -28,6 +28,6 @@ class Api::V1::ComplaintController < ApplicationController
     # url = obj.presigned_url(:put)
     #
     # render json: { uploadUrl: url }
-    render json: { uploadUrl: 'happy' }
+    render json: { uploadUrl: ENV['STAM'] }
   end
 end
