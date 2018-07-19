@@ -32,8 +32,12 @@ class Api::V1::ComplaintController < ApplicationController
   end
 
   def reply
-    Complaint.find(params[:id]).update(response: params[:message])
+    complaint = Complaint.find(params[:id])
+    complaint.update!(response: params[:message])
     #PAZZZ GIVE ME AN ENDPOINT TO SENT THE RESPONSE TO
+    # bot.send_message(chat_id: complaint.session_id, text: "This is the reply to your last complaint: \"#{complaint.response}\"")
+    Telegram.bot.send_message(chat_id: complaint.session_id, text: "This is the reply to your last complaint: #{complaint.response}")
+
 
     render json: {}
   end
