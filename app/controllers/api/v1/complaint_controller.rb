@@ -1,6 +1,6 @@
 class Api::V1::ComplaintController < ApplicationController
   def index
-    render json: Complaint.all
+    render json: Complaint.all.order(id: :desc)
   end
 
   def show
